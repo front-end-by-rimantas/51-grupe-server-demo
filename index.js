@@ -7,6 +7,20 @@ app.get('/', (req, res) => {
     return res.send('Home page');
 });
 
+app.get('/services', (req, res) => {
+    return res.send('Services page: html, css, js, git');
+});
+
+app.get('/services/:name', (req, res) => {
+    const serviceList = ['html', 'css', 'js', 'git'];
+
+    if (serviceList.includes(req.params.name)) {
+        return res.send('Single service page: ' + req.params.name);
+    } else {
+        return res.send(`Paslauga "${req.params.name}" nera teikiama`);
+    }
+});
+
 app.get('/login', (req, res) => {
     return res.send('Login page');
 });
