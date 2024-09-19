@@ -4,37 +4,223 @@ const app = express();
 const port = 5114;
 
 app.get('/', (req, res) => {
-    return res.send('Home page');
+    return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Home page</h1>
+    </main>
+</body>
+</html>`);
+});
+
+app.get('/contact-us', (req, res) => {
+    return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Contact us page</h1>
+        <p>Dabar bulviakasis - netrukdyk 👀</p>
+    </main>
+</body>
+</html>`);
 });
 
 app.get('/services', (req, res) => {
-    return res.send('Services page: html, css, js, git');
+    return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Services page</h1>
+        <nav>
+            <a href="/services/html">HTML</a>
+            <a href="/services/css">CSS</a>
+            <a href="/services/js">JS</a>
+            <a href="/services/git">GIT</a>
+        </nav>
+    </main>
+</body>
+</html>`);
 });
 
 app.get('/services/:name', (req, res) => {
-    const serviceList = ['html', 'css', 'js', 'git'];
+    const services = {
+        html: 'HTML yra cool',
+        css: 'CSS yra grazu',
+        js: 'JS tiesiog yra',
+        git: 'Git it',
+    };
 
-    if (serviceList.includes(req.params.name)) {
-        return res.send('Single service page: ' + req.params.name);
+    if (services[req.params.name]) {
+        return res.send(`<!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Document</title>
+                        </head>
+                        <body>
+                            <header>
+                                <nav>
+                                    <a href="/">Home</a>
+                                    <a href="/services">Services</a>
+                                    <a href="/login">Login</a>
+                                    <a href="/register">Register</a>
+                                    <a href="/contact-us">Contact us</a>
+                                </nav>
+                            </header>
+                            <main>
+                                <h1>${req.params.name} page</h1>
+                                <p>${services[req.params.name]}</p>
+                            </main>
+                        </body>
+                        </html>`);
     } else {
         return res.send(`Paslauga "${req.params.name}" nera teikiama`);
     }
 });
 
 app.get('/login', (req, res) => {
-    return res.send('Login page');
+    return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Login page</h1>
+    </main>
+</body>
+</html>`);
 });
 
 app.get('/register', (req, res) => {
-    return res.send('Register page');
+    return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Register page</h1>
+    </main>
+</body>
+</html>`);
 });
 
 app.get('/secret', (req, res) => {
-    return res.status(401).send('Secret page');
+    return res.status(401).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Secret page</h1>
+    </main>
+</body>
+</html>`);
 });
 
 app.get('*', (req, res) => {
-    return res.send('404 - page not found');
+    return res.status(404).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/contact-us">Contact us</a>
+        </nav>
+    </header>
+    <main>
+        <h1>404</h1>
+        <p>Page not found</p>
+    </main>
+</body>
+</html>`);
 });
 
 app.use((req, res, next) => {
