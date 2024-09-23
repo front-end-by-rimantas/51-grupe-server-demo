@@ -1,89 +1,22 @@
 import express from 'express';
+import { pageHome } from './pages/pageHome.js';
+import { pageContactUs } from './pages/pageContactUs.js';
+import { pageLogin } from './pages/pageLogin.js';
+import { pageRegister } from './pages/pageRegister.js';
+import { pageSecret } from './pages/pageSecret.js';
+import { pageNotFound } from './pages/pageNotFound.js';
+import { pageServices } from './pages/pageServices.js';
+import { pageService } from './pages/pageService.js';
+import { pageServiceNotFound } from './pages/pageServiceNotFound.js';
 
 const app = express();
 const port = 5114;
 
-app.get('/', (req, res) => {
-    return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Home page</h1>
-    </main>
-</body>
-</html>`);
-});
+app.use(express.static('public'));
 
-app.get('/contact-us', (req, res) => {
-    return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Contact us page</h1>
-        <p>Dabar bulviakasis - netrukdyk 👀</p>
-    </main>
-</body>
-</html>`);
-});
-
-app.get('/services', (req, res) => {
-    return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Services page</h1>
-        <nav>
-            <a href="/services/html">HTML</a>
-            <a href="/services/css">CSS</a>
-            <a href="/services/js">JS</a>
-            <a href="/services/git">GIT</a>
-        </nav>
-    </main>
-</body>
-</html>`);
-});
+app.get('/', (req, res) => res.send(pageHome()));
+app.get('/contact-us', (req, res) => res.send(pageContactUs()));
+app.get('/services', (req, res) => res.send(pageServices()));
 
 app.get('/services/:name', (req, res) => {
     const services = {
@@ -94,134 +27,16 @@ app.get('/services/:name', (req, res) => {
     };
 
     if (services[req.params.name]) {
-        return res.send(`<!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Document</title>
-                        </head>
-                        <body>
-                            <header>
-                                <nav>
-                                    <a href="/">Home</a>
-                                    <a href="/services">Services</a>
-                                    <a href="/login">Login</a>
-                                    <a href="/register">Register</a>
-                                    <a href="/contact-us">Contact us</a>
-                                </nav>
-                            </header>
-                            <main>
-                                <h1>${req.params.name} page</h1>
-                                <p>${services[req.params.name]}</p>
-                            </main>
-                        </body>
-                        </html>`);
+        return res.send(pageService(req.params.name, services[req.params.name]));
     } else {
-        return res.send(`Paslauga "${req.params.name}" nera teikiama`);
+        return res.send(pageServiceNotFound(req.params.name));
     }
 });
 
-app.get('/login', (req, res) => {
-    return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Login page</h1>
-    </main>
-</body>
-</html>`);
-});
-
-app.get('/register', (req, res) => {
-    return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Register page</h1>
-    </main>
-</body>
-</html>`);
-});
-
-app.get('/secret', (req, res) => {
-    return res.status(401).send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Secret page</h1>
-    </main>
-</body>
-</html>`);
-});
-
-app.get('*', (req, res) => {
-    return res.status(404).send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/services">Services</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-            <a href="/contact-us">Contact us</a>
-        </nav>
-    </header>
-    <main>
-        <h1>404</h1>
-        <p>Page not found</p>
-    </main>
-</body>
-</html>`);
-});
+app.get('/login', (req, res) => res.send(pageLogin()));
+app.get('/register', (req, res) => res.send(pageRegister()));
+app.get('/secret', (req, res) => res.status(401).send(pageSecret()));
+app.get('*', (req, res) => res.status(404).send(pageNotFound()));
 
 app.use((req, res, next) => {
     return res.status(404).send("Sorry can't find that!");
