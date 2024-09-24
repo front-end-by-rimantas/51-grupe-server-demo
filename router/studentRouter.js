@@ -133,3 +133,5 @@ studentRouter.get('/:name/marks/add/:mark', (req, res) => {
 // studentas gauna pazymi
 // suzinoti studento pazymiu vidurki
 // studentu vardu sarasas ir ju pazymiu vidurkiai
+
+// extra: studentas gali tureti po kelis telefono numerius
