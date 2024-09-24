@@ -12,3 +12,7 @@ body {
 main {
   padding: 2rem;
 }
+
+img {
+  max-width: 100%;
+}
