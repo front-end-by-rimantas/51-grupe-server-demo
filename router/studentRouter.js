@@ -135,3 +135,5 @@ studentRouter.get('/:name/marks/add/:mark', (req, res) => {
 // studentu vardu sarasas ir ju pazymiu vidurkiai
 
 // extra: studentas gali tureti po kelis telefono numerius
+// - ar tikrinamas unikalumas tik to vieno studento objekte
+// - ar tikrinama tarp visu studentu (teisingas atsakymas 👀)

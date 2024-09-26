@@ -10,6 +10,9 @@ import { pageService } from './pages/pageService.js';
 import { pageServiceNotFound } from './pages/pageServiceNotFound.js';
 import { reqLog } from './middleware/reqLog.js';
 import { apiRouter } from './router/apiRouter.js';
+import { PageHome } from './pages-oop/PageHome.js';
+import { PageNotFound } from './pages-oop/PageNotFound.js';
+import { PageLogin } from './pages-oop/PageLogin.js';
 
 const app = express();
 const port = 5114;
@@ -22,7 +25,10 @@ app.use(reqLog);
 app.use('/api', apiRouter);
 
 // routes
-app.get('/', (req, res) => res.send(pageHome(req)));
+
+app.get('/', (req, res) => res.send(new PageHome().render()));
+app.get('/login', (req, res) => res.send(new PageLogin().render()));
+
 app.get('/contact-us', (req, res) => res.send(pageContactUs(req)));
 app.get('/services', (req, res) => res.send(pageServices(req)));
 app.get('/services/:name', (req, res) => {
@@ -39,10 +45,10 @@ app.get('/services/:name', (req, res) => {
         return res.send(pageServiceNotFound(req, req.params.name));
     }
 });
-app.get('/login', (req, res) => res.send(pageLogin(req)));
 app.get('/register', (req, res) => res.send(pageRegister(req)));
 app.get('/secret', (req, res) => res.status(401).send(pageSecret(req)));
-app.get('*', (req, res) => res.status(404).send(pageNotFound(req)));
+
+app.get('*', (req, res) => res.status(404).send(new PageNotFound().render()));
 
 app.use((req, res, next) => {
     return res.status(404).send("Sorry can't find that!");
